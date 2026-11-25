@@ -31,7 +31,18 @@ def profile(path):
 
     print(f"File:    {path}")
     print(f"Rows:    {len(rows)}")
-    print(f"Columns: {len(columns)}\n")
+    print(f"Columns: {len(columns)}")
+
+    # A row is a duplicate if every value matches an earlier row
+    seen = set()
+    dupes = 0
+    for r in rows:
+        key = tuple(r.get(c) for c in columns)
+        if key in seen:
+            dupes += 1
+        seen.add(key)
+    print(f"Duplicate rows: {dupes}\n")
+
     print(f"{'column':<20}{'type':<8}{'nulls':>6}{'unique':>8}  min / max")
     print("-" * 60)
 
